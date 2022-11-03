@@ -7,3 +7,4 @@ public class SalarieException extends Exception {
     }
 
 }
+

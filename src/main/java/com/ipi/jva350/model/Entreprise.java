@@ -1,5 +1,7 @@
 package com.ipi.jva350.model;
 
+import com.ipi.jva350.exception.NotImplementedException;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -139,9 +141,9 @@ public final class Entreprise {
         return monEntier != test;
     }
 
-    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
+    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) throws NotImplementedException {
 
-        throw new RuntimeException("Not implemented");
+        throw new NotImplementedException("Not implemented");
     }
 
 }
