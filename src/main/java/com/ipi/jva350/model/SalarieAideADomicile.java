@@ -34,6 +34,7 @@ public class SalarieAideADomicile {
     private double joursTravaillesAnneeN= 0;
     private double congesPayesAcquisAnneeN= 0;
 
+    //COMMENTAIRE WESH
     /** en année N sur l'acquis N-1 */
     @Convert(converter = LinkedHashSetStringConverter.class)
     @Column
@@ -41,7 +42,7 @@ public class SalarieAideADomicile {
     private double joursTravaillesAnneeNMoins1= 0;
     private double congesPayesAcquisAnneeNMoins1= 0;
     private double congesPayesPrisAnneeNMoins1= 0;
-    //commentaire
+    
     public SalarieAideADomicile() {
     }
 
