@@ -1,6 +1,5 @@
 package com.ipi.jva350;
 
-import org.assertj.core.api.Assert;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.suite.api.ConfigurationParameter;
@@ -14,7 +13,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("com/ipi/jva350")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-public class RunCucumberTest {
+class RunCucumberTest {
 
     @Test
     void Test_IsItFriday(){

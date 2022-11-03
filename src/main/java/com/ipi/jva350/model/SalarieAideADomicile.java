@@ -70,8 +70,8 @@ public class SalarieAideADomicile {
      *     à l'intérieur d'une période de temps – dite de « référence » – allant du 1er juin de l'année N au 31 mai de l'année N + 1.
      * @return
      */
-    public boolean aLegalementDroitADesCongesPayes() {
-        return this.getJoursTravaillesAnneeNMoins1() > 10;
+    public boolean aLegalementDroitADesCongesPayes(double joursTravaillerMoinsUN) {
+        return joursTravaillerMoinsUN > 10;
     }
 
     /**
@@ -175,15 +175,6 @@ public class SalarieAideADomicile {
     public double getCongesPayesRestantAnneeNMoins1() {
         return this.congesPayesAcquisAnneeNMoins1 - this.getCongesPayesPrisAnneeNMoins1();
     }
-    /*
-    public double getCongesPayesRestantAnneeNMoins1() {
-        return congesPayesRestantAnneeNMoins1;
-    }
-
-    public void setCongesPayesRestantAnneeNMoins1(double congesPayesRestantAnneeNMoins1) {
-        this.congesPayesRestantAnneeNMoins1 = congesPayesRestantAnneeNMoins1;
-    }
-    */
 
     public double getCongesPayesAcquisAnneeNMoins1() {
         return congesPayesAcquisAnneeNMoins1;
