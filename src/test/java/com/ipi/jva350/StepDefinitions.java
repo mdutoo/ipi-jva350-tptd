@@ -19,7 +19,6 @@ public class StepDefinitions {
     public void today_is_Sunday() {
         today = "Sunday";
     }
-
     @When("I ask whether it's Friday yet")
     public void i_ask_whether_it_s_Friday_yet() {
         actualAnswer = IsItFriday.isItFriday(today);
