@@ -25,8 +25,7 @@ public class StepDefinitions {
     }
 
     @Then("I should be told {string}")
-    public void i_should_be_told(String expectedAnswer) {
-        assertEquals(expectedAnswer, actualAnswer);
+    public boolean i_should_be_told(String expectedAnswer) {
+            return expectedAnswer.equals(actualAnswer);
     }
-
 }

@@ -26,6 +26,6 @@ public class RunCucumberTest {
         stepDefinitions.i_ask_whether_it_s_Friday_yet();
 
         Then:
-        stepDefinitions.i_should_be_told("Nope");
+        assert(stepDefinitions.i_should_be_told("Nope")) ;
     }
 }
