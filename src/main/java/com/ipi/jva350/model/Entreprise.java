@@ -86,42 +86,17 @@ private Entreprise() {
     }
 
     public static double proportionPondereeDuMois(LocalDate moisDuConge) {
-        int proportionPonderee = 8;
+        int proportionPonderee = 0;
         int mois = 1 + (moisDuConge.getMonthValue() + 6) % 12;
-        if (mois >= 2) {
-            proportionPonderee += 20;
+
+        for (int i = 1; i <= mois; i++){
+            if (mois == 2 || mois == 3){
+                proportionPonderee += 20;
+            }else{
+                proportionPonderee += 8;
+            }
         }
-        if (mois >= 3) {
-            proportionPonderee += 20;
-        }
-        if (mois >= 4) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 5) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 6) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 7) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 8) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 9) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 10) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 11) {
-            proportionPonderee += 8;
-        }
-        if (mois >= 12) {
-            proportionPonderee += 8;
-        }
-        return proportionPonderee / 12d / 10d;
+        return proportionPonderee / 120d;
     }
 
 
@@ -132,13 +107,8 @@ private Entreprise() {
     }
 
     public static boolean estJourFerie(LocalDate jour) {
-        int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d ->
-                d.equals(jour)).count();
-        int test = bissextile(jour.getYear()) ? 1 : 0;
-        if (test != 0 && !(monEntier > 1)) {
-            test--;
-        }
-        return monEntier != test;
+        return Entreprise.joursFeries(jour).stream().filter(d ->
+                d.equals(jour)).count() > 0;
     }
 
     // Le tdd à ici apporté la comprehension du fait que c'est une fonction clamp
