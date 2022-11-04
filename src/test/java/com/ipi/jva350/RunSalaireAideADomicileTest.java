@@ -63,17 +63,23 @@ public class RunSalaireAideADomicileTest {
     }
 
     //endregion
-    @Disabled
-    @ParameterizedTest
+    //region CalculeJoursDeCongeDecomptesPourPlage
+    @ParameterizedTest(name = "dateDebut{0}, dateFin{1}, expectedCount{2}")
     @CsvSource
-            ({"'01/01/2022', '12/12/2023"
+            ({
+                    "'2022-01-03', '2022-01-03', 1",
+                    "'2022-12-12', '2022-01-01', 0",
+                    "'2022-01-08', '2022-01-20', 10",
+                    "'2022-01-07', '2022-01-20', 12",
+                    "'2022-01-01', '2022-12-12', 288",
             })
-    void TESTcalculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin){
+    void TESTcalculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin, int expectedCount){
         //Given :
         SalarieAideADomicile aideADomicile = new SalarieAideADomicile();
         //When :
-        aideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin);
+        int result = aideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin).size();
         //Then :
-
+        assertEquals(expectedCount, result);
     }
+    //endregion
 }
