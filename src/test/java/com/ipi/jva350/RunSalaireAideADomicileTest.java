@@ -57,11 +57,13 @@ class RunSalaireAideADomicileTest {
     @ParameterizedTest(name = "dateDebut{0}, dateFin{1}, expectedCount{2}")
     @CsvSource
             ({
-                    "'2022-01-03', '2022-01-03', 1",
-                    "'2022-12-12', '2022-01-01', 0",
-                    "'2022-01-08', '2022-01-20', 10",
-                    "'2022-01-07', '2022-01-20', 12",
-                    "'2022-01-01', '2022-12-12', 288",
+                    "'2022-01-03', '2022-01-03', 1", //le meme jour
+                    "'2022-01-08', '2022-01-08', 0", //le meme samedi
+                    "'2022-12-12', '2022-01-01', 0", //date de fin anterieur
+                    "'2022-01-08', '2022-01-10', 1", //du samedi au lundi
+                    "'2022-01-07', '2022-01-10', 3", //du vendredi au lundi
+                    "'2021-12-25', '2022-01-01', 5", //du samedi ferrier au samedi suivant
+                    "'2022-01-01', '2022-12-12', 288", //data aleatoire sure l'année
             })
     void TESTcalculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin, int expectedCount){
         //Given :
