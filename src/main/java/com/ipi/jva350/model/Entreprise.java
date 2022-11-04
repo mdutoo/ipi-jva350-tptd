@@ -113,10 +113,7 @@ private Entreprise() {
 
     // Le tdd à ici apporté la comprehension du fait que c'est une fonction clamp
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        if ( d.isAfter(fin) || d.isBefore(debut)) {
-            return false;
-        }
-        return  true;
+        return  !(d.isAfter(fin) || d.isBefore(debut));
     }
 
 }
