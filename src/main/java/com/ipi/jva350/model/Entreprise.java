@@ -141,9 +141,11 @@ private Entreprise() {
         return monEntier != test;
     }
 
-    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) throws NotImplementedException {
-
-        throw new NotImplementedException("Not implemented");
+    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
+        if ( d.isAfter(fin) || d.isBefore(debut)) {
+            return false;
+        }
+        return  true;
     }
 
 }

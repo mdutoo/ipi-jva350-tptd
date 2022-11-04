@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EntrepriseTest {
-    @Disabled
     @ParameterizedTest(name = "date{0} est dans [debut{1} fin{2}]")
     @CsvSource
             ({
@@ -18,14 +17,13 @@ class EntrepriseTest {
                     "'2022-11-02', '2022-10-31' , '2022-11-04'",
                     "'2022-11-04', '2022-10-31' , '2022-11-04'",
             })
-    void testEstDansPlage(LocalDate d , LocalDate dateDebut, LocalDate dateFin ) throws NotImplementedException {
+    void testEstDansPlage(LocalDate d , LocalDate dateDebut, LocalDate dateFin )  {
         //GIVEN WHEN
         boolean res = Entreprise.estDansPlage(d , dateDebut , dateFin );
         //THEN
         assertEquals(true , res);
     }
 
-    @Disabled
     @ParameterizedTest(name = "date{0} est dans [debut{1} fin{2}]")
     @CsvSource
             ({
@@ -33,7 +31,7 @@ class EntrepriseTest {
                     "'2022-10-05', '2022-10-31' , '2022-11-04'",
 
             })
-    void testPasDansPlage(LocalDate d , LocalDate dateDebut, LocalDate dateFin ) throws NotImplementedException {
+    void testPasDansPlage(LocalDate d , LocalDate dateDebut, LocalDate dateFin )  {
         //GIVEN WHEN
         boolean res = Entreprise.estDansPlage(d , dateDebut , dateFin );
         //THEN
