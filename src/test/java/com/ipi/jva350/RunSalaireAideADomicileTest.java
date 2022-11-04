@@ -22,7 +22,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("com/ipi/jva350")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-public class RunSalaireAideADomicileTest {
+class RunSalaireAideADomicileTest {
 
     //region Test_ALegalementDroitADesCongesPayes
     @Test
