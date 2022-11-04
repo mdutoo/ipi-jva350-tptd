@@ -23,6 +23,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @SelectClasspathResource("com/ipi/jva350")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
 public class RunSalaireAideADomicileTest {
+
     //region Test_ALegalementDroitADesCongesPayes
     @Test
     void TEST_ALegalementDroitADesCongesPayes_NoINIT_False(){
@@ -34,13 +35,6 @@ public class RunSalaireAideADomicileTest {
                 LocalDate.now(), 0,
                 0, 0,
                 0, 0).aLegalementDroitADesCongesPayes());
-    }
-    @Test
-    void TEST_ALegalementDroitADesCongesPayes_ADejaCPMaisPasUtilise_TRUE(){
-        assertTrue(new SalarieAideADomicile("Patrick", LocalDate.now(),
-                                                LocalDate.now(), 0,
-                                                0, 0,
-                                            1, 0).aLegalementDroitADesCongesPayes());
     }
     @Test
     void TEST_ALegalementDroitADesCongesPayes_CasAuxLimitesJoursTravaille(){
@@ -80,6 +74,52 @@ public class RunSalaireAideADomicileTest {
         int result = aideADomicile.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin).size();
         //Then :
         assertEquals(expectedCount, result);
+    }
+    //endregion
+
+    //region
+    @Test
+    void estJourOuvrableTrue() {
+        //GIVEN
+        LocalDate date = LocalDate.of(2022, 4, 11);
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        //WHEN
+        boolean res = salarieAideADomicile.estJourOuvrable(date);
+        assertTrue(res);
+    }
+
+    @Test
+    void estJourOuvrableFalse() {
+        //GIVEN
+        LocalDate date = LocalDate.of(2022, 11, 6);
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        //WHEN
+        boolean res = salarieAideADomicile.estJourOuvrable(date);
+        assertFalse(res);
+    }
+    //endregion
+
+    //region
+    @Test
+    void estHabituellementTravailleFalse() {
+        //GIVEN
+        LocalDate date = LocalDate.of(2022, 11, 5);//Vendredi
+        //WHEN
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        boolean res = salarieAideADomicile.estHabituellementTravaille(date);
+        //THEN
+        assertFalse(res);
+    }
+
+    @Test
+    void estHabituellementTravailleTrue() {
+        //GIVEN
+        LocalDate date = LocalDate.of(2022, 11, 4);//Vendredi
+        //WHEN
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        boolean res = salarieAideADomicile.estHabituellementTravaille(date);
+        //THEN
+        assertTrue(res);
     }
     //endregion
 }
