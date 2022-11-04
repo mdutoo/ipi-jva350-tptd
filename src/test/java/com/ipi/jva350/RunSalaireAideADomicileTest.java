@@ -1,9 +1,6 @@
 package com.ipi.jva350;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.ipi.jva350.model.SalarieAideADomicile;
-import org.hibernate.type.LocalDateTimeType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,11 +9,10 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
-import java.io.Console;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Suite
 @IncludeEngines("cucumber")
@@ -79,9 +75,9 @@ class RunSalaireAideADomicileTest {
 
     //region
     @Test
-    void estJourOuvrableTrue() {
+    void TESTestJourOuvrableTrue() {
         //GIVEN
-        LocalDate date = LocalDate.of(2022, 4, 11);
+        LocalDate date = LocalDate.of(2022, 4, 11); //lundi non ferrier
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
         //WHEN
         boolean res = salarieAideADomicile.estJourOuvrable(date);
@@ -89,9 +85,19 @@ class RunSalaireAideADomicileTest {
     }
 
     @Test
-    void estJourOuvrableFalse() {
+    void TESTestJourOuvrableFalse() {
         //GIVEN
-        LocalDate date = LocalDate.of(2022, 11, 6);
+        LocalDate date = LocalDate.of(2022, 11, 6); //dimanche
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        //WHEN
+        boolean res = salarieAideADomicile.estJourOuvrable(date);
+        assertFalse(res);
+    }
+
+    @Test
+    void TESTestJourOuvrableFerrieeFalse() {
+        //GIVEN
+        LocalDate date = LocalDate.of(2022, 11, 11); // 11 novembre
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
         //WHEN
         boolean res = salarieAideADomicile.estJourOuvrable(date);
@@ -100,10 +106,13 @@ class RunSalaireAideADomicileTest {
     //endregion
 
     //region
-    @Test
-    void estHabituellementTravailleFalse() {
-        //GIVEN
-        LocalDate date = LocalDate.of(2022, 11, 5);//Vendredi
+    @ParameterizedTest(name = "date{0}")
+    @CsvSource
+            ({
+                    "'2022-11-05'",
+                    "'2022-11-06'",
+            })
+    void TESTestHabituellementTravailleSamediFalse(LocalDate date) {
         //WHEN
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
         boolean res = salarieAideADomicile.estHabituellementTravaille(date);
@@ -111,10 +120,16 @@ class RunSalaireAideADomicileTest {
         assertFalse(res);
     }
 
-    @Test
-    void estHabituellementTravailleTrue() {
-        //GIVEN
-        LocalDate date = LocalDate.of(2022, 11, 4);//Vendredi
+    @ParameterizedTest(name = "date{0}")
+    @CsvSource
+            ({
+                    "'2022-10-31'",
+                    "'2022-11-01'",
+                    "'2022-11-02'",
+                    "'2022-11-03'",
+                    "'2022-11-04'",
+            })
+    void TESTestHabituellementTravailleTrue(LocalDate date) {
         //WHEN
         SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
         boolean res = salarieAideADomicile.estHabituellementTravaille(date);
