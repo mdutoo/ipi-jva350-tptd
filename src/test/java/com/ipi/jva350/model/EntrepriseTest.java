@@ -54,7 +54,16 @@ class EntrepriseTest {
     @Test
     void estJourFerie29Fevrier() {
         LocalDate date = LocalDate.parse("2020-02-29");//Vendredi
-        assertEquals(true , Entreprise.estJourFerie(date));
+        assertEquals(false , Entreprise.estJourFerie(date));
     }
 
+    @Test
+    void getPremierJourAnneeDeCongesNULL() {
+        assertEquals(null,Entreprise.getPremierJourAnneeDeConges(null));
+    }
+    @Test
+    void getPremierJourAnneeDeCongesOk() {
+    LocalDate date = LocalDate.parse("2022-06-28");//Vendredi
+        assertEquals(2021,Entreprise.getPremierJourAnneeDeConges(date).getYear());
+    }
 }
