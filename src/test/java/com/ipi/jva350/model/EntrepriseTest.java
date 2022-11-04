@@ -2,6 +2,7 @@ package com.ipi.jva350.model;
 
 import com.ipi.jva350.exception.NotImplementedException;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -38,5 +39,22 @@ class EntrepriseTest {
         assertEquals(false , res);
     }
 
+
+    @Test
+    void estJourFerieFalse() {
+        LocalDate date = LocalDate.parse("2022-05-28");//Samedi
+        assertEquals(false , Entreprise.estJourFerie(date));
+    }
+    @Test
+    void estJourFerieTrue() {
+        LocalDate date = LocalDate.parse("2022-11-11");//Vendredi
+        assertEquals(true , Entreprise.estJourFerie(date));
+    }
+
+    @Test
+    void estJourFerie29Fevrier() {
+        LocalDate date = LocalDate.parse("2020-02-29");//Vendredi
+        assertEquals(true , Entreprise.estJourFerie(date));
+    }
 
 }
