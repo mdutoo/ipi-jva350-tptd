@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.ipi.jva350.model.SalarieAideADomicile;
 import org.hibernate.type.LocalDateTimeType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -62,6 +63,7 @@ public class RunSalaireAideADomicileTest {
     }
 
     //endregion
+    @Disabled
     @ParameterizedTest
     @CsvSource
             ({"'01/01/2022', '12/12/2023"
