@@ -1,9 +1,12 @@
 package com.ipi.jva350.model;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class SalarieAideADomicileTest {
 
@@ -47,6 +50,20 @@ class SalarieAideADomicileTest {
 		// Then
 		Assertions.assertEquals(false,resultat);
 		Assertions.assertEquals(true,aide.aLegalementDroitADesCongesPayes());
+	}
+	
+	@ParameterizedTest(name = "dateDebut {0} et dateFin {1}")
+	@CsvSource({
+	"'2022-11-04', '2022-11-05'"
+	})
+	void testcalculeJoursDeCongeDecomptesPourPlage(LocalDate dateDebut, LocalDate dateFin) {
+		//Given
+		SalarieAideADomicile aide = new SalarieAideADomicile();
+		//When, Then
+		LinkedHashSet<LocalDate> expected = new LinkedHashSet<>();
+		expected.add(LocalDate.parse("2022-11-04"));
+		expected.add(LocalDate.parse("2022-11-05"));
+		Assertions.assertEquals(expected,aide.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin));
 	}
 
 
