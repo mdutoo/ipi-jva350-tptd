@@ -70,8 +70,8 @@ public class SalarieAideADomicile {
      *     à l'intérieur d'une période de temps – dite de « référence » – allant du 1er juin de l'année N au 31 mai de l'année N + 1.
      * @return
      */
-    public boolean aLegalementDroitADesCongesPayes(double joursTravaillerMoinsUN) {
-        return joursTravaillerMoinsUN > 10;
+    public boolean aLegalementDroitADesCongesPayes() {
+        return (getJoursTravaillesAnneeNMoins1() >= 10 || getCongesPayesAcquisAnneeNMoins1() > 0);
     }
 
     /**
