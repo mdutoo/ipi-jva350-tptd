@@ -56,39 +56,67 @@ public class SalarieAideADomicileService {
      * @param dernierJourDeConge demandé
      * @return arrondi à l'entier le plus proche
      */
+    //region calculeLimiteEntrepriseCongesPermis
+    //This functionality needs  refactor to make it testable, to many operations are done for unit testing
     public long calculeLimiteEntrepriseCongesPermis(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1,
                                                       LocalDate moisDebutContrat,
                                                       LocalDate premierJourDeConge, LocalDate dernierJourDeConge) {
+
+        Double limiteConges = PonderaionDesCongésAcquisenNmoins1(congesPayesAcquisAnneeNMoins1, premierJourDeConge, dernierJourDeConge);
+
+        limiteConges += DivevergenceDesCongeDePLusDe20Pourcent(moisEnCours,
+                                                                congesPayesAcquisAnneeNMoins1,
+                                                                premierJourDeConge,
+                                                                salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1()
+        );
+
+        limiteConges += MargeDeCongés(limiteConges, moisEnCours, dernierJourDeConge);
+
+        limiteConges += JourDeCongeAncienneteBonus(moisEnCours, moisDebutContrat);
+
+        return ArrondieJourDeCongeDispo(limiteConges);
+    }
+
+    public double PonderaionDesCongésAcquisenNmoins1(double congesPayesAcquisAnneeNMoins1, LocalDate premierJourDeConge, LocalDate dernierJourDeConge){
         // proportion selon l'avancement dans l'année, pondérée avec poids plus gros sur juillet et août (20 vs 8) :
         double proportionPondereeDuConge = Math.max(Entreprise.proportionPondereeDuMois(premierJourDeConge),
                 Entreprise.proportionPondereeDuMois(dernierJourDeConge));
         double limiteConges = proportionPondereeDuConge * congesPayesAcquisAnneeNMoins1;
 
-        // moyenne annuelle des congés pris :
-        Double partCongesPrisTotauxAnneeNMoins1 = salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1();
+        return limiteConges;
+    }
 
+    public double DivevergenceDesCongeDePLusDe20Pourcent(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1, LocalDate premierJourDeConge, double partCongesPrisTotauxAnneeNMoins1){
         // si la moyenne actuelle des congés pris diffère de 20% de la la proportion selon l'avancement dans l'année
         // pondérée avec poids plus gros sur juillet et août (20 vs 8),
         // bonus ou malus de 20% de la différence pour aider à équilibrer la moyenne actuelle des congés pris :
         double proportionMoisEnCours = ((premierJourDeConge.getMonthValue()
                 - Entreprise.getPremierJourAnneeDeConges(moisEnCours).getMonthValue()) % 12) / 12d;
         double proportionTotauxEnRetardSurLAnnee = proportionMoisEnCours - partCongesPrisTotauxAnneeNMoins1;
-        limiteConges += proportionTotauxEnRetardSurLAnnee * 0.2 * congesPayesAcquisAnneeNMoins1;
+        proportionTotauxEnRetardSurLAnnee *= 0.2 * congesPayesAcquisAnneeNMoins1;
+        return  proportionTotauxEnRetardSurLAnnee;
+    }
 
+    public double MargeDeCongés(double limiteConges, LocalDate moisEnCours, LocalDate dernierJourDeConge){
         // marge supplémentaire de 10% du nombre de mois jusqu'à celui du dernier jour de congé
         int distanceMois = (dernierJourDeConge.getMonthValue() - moisEnCours.getMonthValue()) % 12;
-        limiteConges += limiteConges * 0.1 * distanceMois / 12;
+        return limiteConges * 0.1 * distanceMois / 12;
+    }
 
-        // année ancienneté : bonus jusqu'à 10
+    public double JourDeCongeAncienneteBonus(LocalDate moisEnCours, LocalDate moisDebutContrat){
+        // année ancienneté : bonus jusqu'à 10 --->> ok
         int anciennete = moisEnCours.getYear() - moisDebutContrat.getYear();
-        limiteConges += Math.min(anciennete, 10);
+        return Math.min(anciennete, 10);
+    }
 
+    public long ArrondieJourDeCongeDispo(double limiteConges){
         // arrondi pour éviter les miettes de calcul en Double :
         BigDecimal limiteCongesBd = new BigDecimal(Double.toString(limiteConges));
         limiteCongesBd = limiteCongesBd.setScale(3, RoundingMode.HALF_UP);
         return Math.round(limiteCongesBd.doubleValue());
     }
 
+    //endregion
 
     /**
      * Calcule les jours de congés à décompter, et si valide (voir plus bas) les décompte au salarié
