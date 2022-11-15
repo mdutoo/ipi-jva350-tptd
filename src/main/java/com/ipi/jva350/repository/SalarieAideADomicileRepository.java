@@ -10,6 +10,6 @@ public interface SalarieAideADomicileRepository extends JpaRepository<SalarieAid
 
     SalarieAideADomicile findByNom(String nom);
 
-    @Query("select sum(congesPayesPrisAnneeNMoins1)/sum(congesPayesAcquisAnneeNMoins1) from SalarieAideADomicile")
+    @Query("SELECT SUM(congesPayesPrisAnneeNMoins1)/SUM(congesPayesAcquisAnneeNMoins1) FROM SalarieAideADomicile")
     Double partCongesPrisTotauxAnneeNMoins1();
 }
