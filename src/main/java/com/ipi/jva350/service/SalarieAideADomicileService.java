@@ -19,7 +19,6 @@ public class SalarieAideADomicileService {
 
     @Autowired
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
-
     public SalarieAideADomicileService() {
     }
 
@@ -79,22 +78,27 @@ public class SalarieAideADomicileService {
 
     public double PonderaionDesCongésAcquisenNmoins1(double congesPayesAcquisAnneeNMoins1, LocalDate premierJourDeConge, LocalDate dernierJourDeConge){
         // proportion selon l'avancement dans l'année, pondérée avec poids plus gros sur juillet et août (20 vs 8) :
-        double proportionPondereeDuConge = Math.max(Entreprise.proportionPondereeDuMois(premierJourDeConge),
-                Entreprise.proportionPondereeDuMois(dernierJourDeConge));
+        double proportionPondereeDuConge = Math.max(Entreprise.proportionPondereeDuMois(premierJourDeConge), Entreprise.proportionPondereeDuMois(dernierJourDeConge));
         double limiteConges = proportionPondereeDuConge * congesPayesAcquisAnneeNMoins1;
 
         return limiteConges;
     }
 
+    /// beauoup de modification sur cette unité car on avait pas l'impression que c'était juste (manque d'un expert métier)
     public double DivevergenceDesCongeDePLusDe20Pourcent(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1, LocalDate premierJourDeConge, double partCongesPrisTotauxAnneeNMoins1){
         // si la moyenne actuelle des congés pris diffère de 20% de la la proportion selon l'avancement dans l'année
         // pondérée avec poids plus gros sur juillet et août (20 vs 8),
-        // bonus ou malus de 20% de la différence pour aider à équilibrer la moyenne actuelle des congés pris :
-        double proportionMoisEnCours = ((premierJourDeConge.getMonthValue()
-                - Entreprise.getPremierJourAnneeDeConges(moisEnCours).getMonthValue()) % 12) / 12d;
-        double proportionTotauxEnRetardSurLAnnee = proportionMoisEnCours - partCongesPrisTotauxAnneeNMoins1;
-        proportionTotauxEnRetardSurLAnnee *= 0.2 * congesPayesAcquisAnneeNMoins1;
-        return  proportionTotauxEnRetardSurLAnnee;
+        // bonus ou malus de 20% de la différence pour aider à équilibrer la moyenne actuelle des congés pris
+        double proportionMoisEnCours = (Math.abs(Entreprise.proportionPondereeDuMois(premierJourDeConge)
+                - Entreprise.proportionPondereeDuMois(moisEnCours)));
+        if ((Math.abs(proportionMoisEnCours) >= 0.2)){
+            double proportionTotauxEnRetardSurLAnnee = proportionMoisEnCours - partCongesPrisTotauxAnneeNMoins1;
+            proportionTotauxEnRetardSurLAnnee *= 0.2 * congesPayesAcquisAnneeNMoins1;
+            return proportionTotauxEnRetardSurLAnnee;
+        }
+        else {
+            return  0;
+        }
     }
 
     public double MargeDeCongés(double limiteConges, LocalDate moisEnCours, LocalDate dernierJourDeConge){

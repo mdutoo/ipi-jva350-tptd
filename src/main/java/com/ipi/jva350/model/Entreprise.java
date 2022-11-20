@@ -85,6 +85,8 @@ private Entreprise() {
         return false;
     }
 
+    // proportion selon l'avancement dans l'année, pondérée avec poids plus gros sur juillet et août (20 vs 8) :
+    //"ça veut dire chaque mois compte plus que le précédent, dans une année de travail donc décalé de 6 mois"
     public static double proportionPondereeDuMois(LocalDate moisDuConge) {
         int proportionPonderee = 0;
         int mois = 1 + (moisDuConge.getMonthValue() + 6) % 12;
