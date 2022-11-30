@@ -40,6 +40,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B package verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=l3miage-konatemo_ipi-jva350-tptd
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
