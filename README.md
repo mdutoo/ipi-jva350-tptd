@@ -40,7 +40,7 @@ et au moins comment importer et compiler un projet Java dans l'IDE :
   - ajoutez dans le workflow Github la configuration de l'analyse Sonar Cloud du code
 - Rédigez **ci-dessous** une courte analyse du premier rapport produit par Sonar (métriques, état général...) :
 
-Le premier rapport Sonar indique...
+Le premier rapport Sonar indique 30 code smells dont 9 majeurs.
 
 
 ### Tests unitaires
