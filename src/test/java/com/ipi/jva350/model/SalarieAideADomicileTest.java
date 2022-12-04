@@ -13,9 +13,9 @@ class SalarieAideADomicileTest {
     @Test
     void testALegalementDroitADesCongesPayesDefault() {
         // Given
-        SalarieAideADomicile aide = new SalarieAideADomicile();
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
         // When
-        boolean res = aide.aLegalementDroitADesCongesPayes();
+        boolean res = salarieAideADomicile.aLegalementDroitADesCongesPayes();
         // Then
         Assertions.assertFalse(res);
     }
@@ -23,10 +23,10 @@ class SalarieAideADomicileTest {
     @Test
     void testALegalementDroitADesCongesPayes9() {
         // Given
-        SalarieAideADomicile aide = new SalarieAideADomicile();
-        aide.setJoursTravaillesAnneeNMoins1(9);
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        salarieAideADomicile.setJoursTravaillesAnneeNMoins1(9);
         // When
-        boolean res = aide.aLegalementDroitADesCongesPayes();
+        boolean res = salarieAideADomicile.aLegalementDroitADesCongesPayes();
         // Then
         Assertions.assertFalse(res);
     }
@@ -34,10 +34,10 @@ class SalarieAideADomicileTest {
     @Test
     void testALegalementDroitADesCongesPayes10() {
         // Given
-        SalarieAideADomicile aide = new SalarieAideADomicile();
-        aide.setJoursTravaillesAnneeNMoins1(10);
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        salarieAideADomicile.setJoursTravaillesAnneeNMoins1(10);
         // When
-        boolean res = aide.aLegalementDroitADesCongesPayes();
+        boolean res = salarieAideADomicile.aLegalementDroitADesCongesPayes();
         // Then
         Assertions.assertTrue(res);
     }
@@ -45,10 +45,10 @@ class SalarieAideADomicileTest {
     @Test
     void testALegalementDroitADesCongesPayesBigNumber() {
         // Given
-        SalarieAideADomicile aide = new SalarieAideADomicile();
-        aide.setJoursTravaillesAnneeNMoins1(100);
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        salarieAideADomicile.setJoursTravaillesAnneeNMoins1(100);
         // When
-        boolean res = aide.aLegalementDroitADesCongesPayes();
+        boolean res = salarieAideADomicile.aLegalementDroitADesCongesPayes();
         // Then
         Assertions.assertTrue(res);
     }
