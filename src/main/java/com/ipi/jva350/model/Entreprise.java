@@ -145,7 +145,9 @@ public final class Entreprise {
             return true;
         } else if (d.isBefore(debut) || d.isAfter(fin)) {
             return false;
+        } else if (debut.isAfter(fin)) {
+            throw new RuntimeException("La date de début doit être avant la date de fin");
         }
-        throw new RuntimeException("La date de début doit être avant la date de fin");
+        return false;
     }
 }
