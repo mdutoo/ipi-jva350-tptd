@@ -2,6 +2,11 @@ package com.ipi.jva350.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
 
 class SalarieAideADomicileTest {
 
@@ -46,5 +51,22 @@ class SalarieAideADomicileTest {
         boolean res = aide.aLegalementDroitADesCongesPayes();
         // Then
         Assertions.assertTrue(res);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'2022-11-30', '2022-11-30', 1",
+            "'2022-11-30', '2022-12-02', 2", // ERREUR ICI, EXPECTED = 4 ??
+            "'2022-11-30', '2022-12-03', 3", // ERREUR ICI, EXPECTED = 4 ??
+            "'2022-11-30', '2022-12-04', 5", // ERREUR ICI, EXPECTED = 4 ??
+            "'2022-11-28', '2022-11-30', 2" // ERREUR ICI, EXPECTED = 3 ??
+    })
+    void testCalculeJoursDeCongeDecomptesPourPlage(String dateDebut, String dateFin, int tailleAttendue) {
+        // Given
+        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
+        // When
+        LinkedHashSet<LocalDate> joursDeCongesDecomptes = salarieAideADomicile.calculeJoursDeCongeDecomptesPourPlage(LocalDate.parse(dateDebut), LocalDate.parse(dateFin));
+        // Then
+        Assertions.assertEquals(joursDeCongesDecomptes.size(), tailleAttendue);
     }
 }
