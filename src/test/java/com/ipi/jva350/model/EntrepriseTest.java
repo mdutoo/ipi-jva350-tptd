@@ -50,4 +50,29 @@ class EntrepriseTest {
         // Then
         Assertions.assertTrue(res);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'2022-07-01', 28",
+            "'2022-05-01', 16"
+    })
+    void testProportionPondereeDuMois(String date, double resAttendu) {
+        // Given, When
+        double res = Entreprise.proportionPondereeDuMois(LocalDate.parse(date));
+        // Then
+        Assertions.assertEquals(res, resAttendu);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'2022-04-04', '2021-06-01'",
+            "'2023-04-04', '2022-06-01'"
+    })
+    void testGetPremierJourAnneeDeConges(String date, String dateAttendue) {
+        // Given, When
+        LocalDate res = Entreprise.getPremierJourAnneeDeConges(LocalDate.parse(date));
+        // Then
+        Assertions.assertEquals(res, LocalDate.parse(dateAttendue));
+    }
+
 }
