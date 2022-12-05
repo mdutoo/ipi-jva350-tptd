@@ -56,11 +56,11 @@ class EntrepriseTest {
             "'2022-07-01', 28",
             "'2022-05-01', 16"
     })
-    void testProportionPondereeDuMois(String date, double resAttendu) {
+    void testProportionPondereeDuMois(String date, double expected) {
         // Given, When
         double res = Entreprise.proportionPondereeDuMois(LocalDate.parse(date));
         // Then
-        Assertions.assertEquals(res, resAttendu);
+        Assertions.assertEquals(res, expected);
     }
 
     @ParameterizedTest

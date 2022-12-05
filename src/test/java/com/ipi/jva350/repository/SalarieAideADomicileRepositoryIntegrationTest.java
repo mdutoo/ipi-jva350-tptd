@@ -33,4 +33,9 @@ public class SalarieAideADomicileRepositoryIntegrationTest {
         Assertions.assertEquals(testNom, res.getNom());
     }
 
+    @Test
+    void testPartCongesPrisTotauxAnneeNMoins1() {
+        salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1();
+    }
+
 }
