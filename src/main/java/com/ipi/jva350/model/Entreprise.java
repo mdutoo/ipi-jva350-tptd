@@ -141,13 +141,8 @@ public final class Entreprise {
 
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
         // à implémenter en TDD !
-<<<<<<< HEAD
-        if(d.isAfter(debut)&&d.isBefore(fin)){
-=======
-        if(d.isAfter(debut) && d.isBefore(fin)){
->>>>>>> 16ddc81bef366e2dab8592145c08f495fb9d1b96
-            return true;
-        }
+        if(d.isAfter(debut) && d.isBefore(fin)) return true;
+        
         return false;
     }
 
