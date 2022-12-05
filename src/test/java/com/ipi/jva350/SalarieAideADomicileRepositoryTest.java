@@ -1,4 +1,4 @@
-package com.ipi.jva350;
+/*package com.ipi.jva350;
 
 import com.ipi.jva350.model.SalarieAideADomicile;
 import com.ipi.jva350.repository.SalarieAideADomicileRepository;
@@ -40,3 +40,4 @@ public class SalarieAideADomicileRepositoryTest {
         Assertions.assertThat(salarieRepo.findByNom(nom)).isEqualTo(null);
     }
 }
+*/
