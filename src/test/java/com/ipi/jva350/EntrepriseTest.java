@@ -61,7 +61,6 @@ public class EntrepriseTest {
         //Then
         Assertions.assertThat(verif).isEqualTo(expected);
     }
-
     @ParameterizedTest(name = "test estDansPlage")
     @CsvSource({
             "'2022-12-01',  '2022-06-01'",
@@ -78,4 +77,18 @@ public class EntrepriseTest {
         //Then
         Assertions.assertThat(verif).isEqualTo(LocalDate.parse(expected));
     }
+    @ParameterizedTest(name = "test estJourFerie")
+    @CsvSource({
+            "'2022-01-01', true",
+            "'2022-06-01', false",
+            "'2022-12-25', true",
+            "'2022-05-01', true"
+    })
+    public void proportionPondereeDuMois(String MoisDuConge){
+
+    }
+
+
+
+
 }
