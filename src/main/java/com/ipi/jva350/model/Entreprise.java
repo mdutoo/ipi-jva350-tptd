@@ -86,46 +86,46 @@ public final class Entreprise {
     public static double proportionPondereeDuMois(LocalDate moisDuConge) {
         int proportionPonderee = 8;
         int mois = 1 + (moisDuConge.getMonthValue() + 6) % 12;
-        if (mois >= 2) {
+        if (mois == 2) {
             proportionPonderee += 20;
         }
-        if (mois >= 3) {
+        if (mois == 3) {
             proportionPonderee += 20;
         }
-        if (mois >= 4) {
+        if (mois == 4) {
             proportionPonderee += 8;
         }
-        if (mois >= 5) {
+        if (mois == 5) {
             proportionPonderee += 8;
         }
-        if (mois >= 6) {
+        if (mois == 6) {
             proportionPonderee += 8;
         }
-        if (mois >= 7) {
+        if (mois == 7) {
             proportionPonderee += 8;
         }
-        if (mois >= 8) {
+        if (mois == 8) {
             proportionPonderee += 8;
         }
-        if (mois >= 9) {
+        if (mois == 9) {
             proportionPonderee += 8;
         }
-        if (mois >= 10) {
+        if (mois == 10) {
             proportionPonderee += 8;
         }
-        if (mois >= 11) {
+        if (mois == 11) {
             proportionPonderee += 8;
         }
-        if (mois >= 12) {
+        if (mois == 12) {
             proportionPonderee += 8;
         }
-        return proportionPonderee / 12d / 10d;
+        return proportionPonderee;
     }
 
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
         return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)
+                : d.getMonthValue() > 5 ? LocalDate.of(d.getYear(), 6, 1)
                 : LocalDate.of(d.getYear() - 1, 6, 1);
     }
 
@@ -141,7 +141,11 @@ public final class Entreprise {
 
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
         // à implémenter en TDD !
+<<<<<<< HEAD
         if(d.isAfter(debut)&&d.isBefore(fin)){
+=======
+        if(d.isAfter(debut) && d.isBefore(fin)){
+>>>>>>> 16ddc81bef366e2dab8592145c08f495fb9d1b96
             return true;
         }
         return false;
