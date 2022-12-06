@@ -45,5 +45,4 @@ public class SalarieAideADomicileServiceTest {
         // Then
         Assertions.assertEquals(congesPayesAcquisInitial + SalarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS, salarieAideADomicile.getCongesPayesAcquisAnneeN());
     }
-
 }
