@@ -29,7 +29,7 @@ public class SalarieAideADomicileServiceMockTest {
         salarieAideADomicile.setCongesPayesAcquisAnneeN(4);
         salarieAideADomicile.setMoisEnCours(LocalDate.parse("2022-01-31"));
 
-        Mockito.when(salarieAideADomicileRepository.save(salarieAideADomicile)).thenAnswer(AdditionalAnswers.returnsFirstArg());;
+        Mockito.when(salarieAideADomicileRepository.save(salarieAideADomicile)).thenAnswer(AdditionalAnswers.returnsFirstArg());
         // When
         salarieAideADomicileService.clotureMois(salarieAideADomicile, 20);
         // Then
