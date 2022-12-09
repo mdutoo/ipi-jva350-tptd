@@ -53,8 +53,8 @@ class EntrepriseTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'2022-07-01', 28",
-            "'2022-05-01', 16"
+            "'2022-07-01', 0.23",
+            "'2022-05-01', 1"
     })
     void testProportionPondereeDuMois(String date, double expected) {
         // Given, When
