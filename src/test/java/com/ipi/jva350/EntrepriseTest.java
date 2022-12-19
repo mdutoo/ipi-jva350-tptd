@@ -12,7 +12,7 @@ import java.util.LinkedHashSet;
 
 public class EntrepriseTest {
 
-    @ParameterizedTest(name = "test estDansPlage")
+    @ParameterizedTest(name = "TestestDansPlage")
     @CsvSource({
             "'2022-12-01', '2022-10-01', '2022-11-14', false",
             "'2022-07-01', '2021-05-01', '2021-12-25', false",
@@ -29,7 +29,7 @@ public class EntrepriseTest {
         Assertions.assertThat(verif).isEqualTo(expected);
     }
 
-    @ParameterizedTest(name = "test estDansPlage")
+    @ParameterizedTest(name = "TestEstJourFerie")
     @CsvSource({
             "'2022-12-01',  false",
             "'2022-07-01', false",
@@ -46,13 +46,13 @@ public class EntrepriseTest {
         Assertions.assertThat(verif).isEqualTo(expected);
     }
 
-    @ParameterizedTest(name = "test estDansPlage")
+    @ParameterizedTest(name = "TestProportionPonderee")
     @CsvSource({
-            "'2022-12-01',  16",
-            "'2022-07-01', 28",
-            "'2022-07-01', 28",
-            "'2021-01-01', 16",
-            "'2020-01-12', 16"
+            "'2022-12-01',  0.6666666666666667",
+            "'2022-07-01', 0.23333333333333334",
+            "'2022-07-01', 0.23333333333333334",
+            "'2021-01-01',  0.7333333333333333",
+            "'2020-01-12', 0.7333333333333333"
     })
     public void proportionPondereeDuMois(String moisDuConge, double expected){
         //Given
@@ -62,7 +62,7 @@ public class EntrepriseTest {
         Assertions.assertThat(verif).isEqualTo(expected);
     }
 
-    @ParameterizedTest(name = "test estDansPlage")
+    @ParameterizedTest(name = "TestGetPremierJourAnnéeConge")
     @CsvSource({
             "'2022-12-01',  '2022-06-01'",
             "'2022-07-01', '2022-06-01'",
@@ -78,4 +78,5 @@ public class EntrepriseTest {
         //Then
         Assertions.assertThat(verif).isEqualTo(LocalDate.parse(expected));
     }
+
 }

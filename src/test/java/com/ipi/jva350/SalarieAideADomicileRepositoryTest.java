@@ -23,20 +23,28 @@ public class SalarieAideADomicileRepositoryTest {
     @Autowired
     SalarieAideADomicileRepository salarieRepo;
     @Test
-    public void findByNom(){
+    public void partCongesPrisTotauxAnneeNMoins1(){
+        /*la methode fait la sum de toutes les valeurs de congesPayePrisAnneeNMoins1 et divise par la sum
+        de toutes les valeurs de congePayesAcquisAnnéeNMoins1
+        elle permet notamment de savoir le taux de conges pris par les salaries
+        */
+
+        //Given
         SalarieAideADomicile salarie=new SalarieAideADomicile();
+        SalarieAideADomicile salarie2=new SalarieAideADomicile();
         String nom="Georges";
+        String nom2="Mohamed";
         salarie.setNom(nom);
+        salarie2.setNom(nom2);
+        salarie.setCongesPayesAcquisAnneeNMoins1(100);
+        salarie2.setCongesPayesAcquisAnneeNMoins1(100);
+        salarie.setCongesPayesPrisAnneeNMoins1(10);
+        salarie2.setCongesPayesPrisAnneeNMoins1(10);
+        //When
         salarieRepo.save(salarie);
-        Assertions.assertThat(salarieRepo.findByNom(nom)).isEqualTo(salarie);
+        salarieRepo.save(salarie2);
+        //Then
+        Assertions.assertThat(salarieRepo.partCongesPrisTotauxAnneeNMoins1()).isEqualTo(0.1);
 
-
-    }
-    @Test
-    public void findByNomNotExists(){
-        SalarieAideADomicile salarie=new SalarieAideADomicile();
-        String nom="Georges";
-        salarie.setNom(nom);
-        Assertions.assertThat(salarieRepo.findByNom(nom)).isEqualTo(null);
     }
 }
