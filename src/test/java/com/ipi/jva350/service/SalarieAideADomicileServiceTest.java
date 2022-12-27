@@ -2,6 +2,7 @@ package com.ipi.jva350.service;
 
 import com.ipi.jva350.exception.SalarieException;
 import com.ipi.jva350.model.SalarieAideADomicile;
+import com.ipi.jva350.repository.SalarieAideADomicileRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +18,9 @@ public class SalarieAideADomicileServiceTest {
 
     @Autowired
     private SalarieAideADomicileService salarieAideADomicileService;
+
+    @Autowired
+    SalarieAideADomicileRepository salarieAideADomicileRepository;
 
     @Test
     void testClotureMoisJoursTravailles() throws SalarieException {
@@ -46,19 +50,22 @@ public class SalarieAideADomicileServiceTest {
         Assertions.assertEquals(congesPayesAcquisInitial + SalarieAideADomicile.CONGES_PAYES_ACQUIS_PAR_MOIS, salarieAideADomicile.getCongesPayesAcquisAnneeN());
     }
 
-    // MOCK
-//    @Test
-//    void testCalculeLimiteEntrepriseCongesPermis() {
-//        // Given
-//        SalarieAideADomicile salarieAideADomicile = new SalarieAideADomicile();
-//        LocalDate moisEnCours = LocalDate.parse("2022-12-04");
-//        double congesPayesAcquisAnneeNMoins1 = 10;
-//        LocalDate moisDebutContrat = LocalDate.parse("2022-01-01");
-//        LocalDate premierJourConge = LocalDate.parse("2022-12-16");
-//        LocalDate dernierJourConge = LocalDate.parse("2022-12-25");
-//        // When
-//        salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(moisEnCours, congesPayesAcquisAnneeNMoins1, moisDebutContrat, premierJourConge, dernierJourConge);
-//        // Then
-//    }
+    @Test
+    void testCalculeLimiteEntrepriseCongesPermis() {
+        // Given
+        SalarieAideADomicile salarie = new SalarieAideADomicile();
+        salarie.setNom("Ruben");
+        salarie.setMoisEnCours(LocalDate.parse("2022-01-01"));
+        salarie.setCongesPayesAcquisAnneeNMoins1(20);
+        salarie.setMoisDebutContrat(LocalDate.parse("2021-01-01"));
+        salarieAideADomicileRepository.save(salarie);
+        //When
+        long limiteEntrepriseCongesPermis = salarieAideADomicileService.calculeLimiteEntrepriseCongesPermis(salarie.getMoisEnCours(),
+                salarie.getCongesPayesAcquisAnneeNMoins1(),
+                salarie.getMoisDebutContrat(),LocalDate.parse("2022-01-20"),LocalDate.parse("2022-02-01"));
+
+        // Then
+        Assertions.assertEquals(limiteEntrepriseCongesPermis, 15L);
+    }
 
 }
