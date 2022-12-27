@@ -135,4 +135,4 @@ fichier ne dépasse pas 1 MO.
 - BONUS : Créez une petite documentation statique en utilisant MkDocs.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
 
-Le rapport Sonar final indique plusieurs code smells et quelques erreurs.
+Le rapport Sonar final indique plusieurs code smells bloquants : un swap de valeur dans un assertion ainsi qu'un conseil, celui de remplacer un return false par un RuntimeException

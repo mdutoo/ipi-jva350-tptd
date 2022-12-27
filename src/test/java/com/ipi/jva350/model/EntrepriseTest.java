@@ -1,5 +1,6 @@
 package com.ipi.jva350.model;
 
+import com.ipi.jva350.exception.DateException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 class EntrepriseTest {
 
     @Test
-    void testEstDansPlageTrue() {
+    void testEstDansPlageTrue() throws DateException {
         // Given, When
         boolean res = Entreprise.estDansPlage(LocalDate.parse("2022-12-04"), LocalDate.parse("2022-12-01"), LocalDate.parse("2022-12-31"));
         // Then
@@ -18,7 +19,7 @@ class EntrepriseTest {
     }
 
     @Test
-    void testEstDansPlageFalse() {
+    void testEstDansPlageFalse() throws DateException {
         // Given, When
         boolean res = Entreprise.estDansPlage(LocalDate.parse("2022-11-04"), LocalDate.parse("2022-12-01"), LocalDate.parse("2022-12-31"));
         // Then
@@ -26,7 +27,7 @@ class EntrepriseTest {
     }
 
     @Test
-    void testEstDansPlageWrong() {
+    void testEstDansPlageWrong() throws DateException {
         // Given, When
         boolean res = Entreprise.estDansPlage(LocalDate.parse("2022-08-04"), LocalDate.parse("2022-12-31"), LocalDate.parse("2022-11-01"));
         // Then

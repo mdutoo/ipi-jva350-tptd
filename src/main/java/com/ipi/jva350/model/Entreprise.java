@@ -1,5 +1,7 @@
 package com.ipi.jva350.model;
 
+import com.ipi.jva350.exception.DateException;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -140,14 +142,14 @@ public final class Entreprise {
     }
 
     // j'aurais sûrement écrit la meme méthode sans TDD (seulement je n'arrive pas à faire fonctionner le runtime exception si date début > date fin)
-    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
+    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) throws DateException {
         if (d.isAfter(debut) && d.isBefore(fin)) {
             return true;
         } else if (d.isBefore(debut) || d.isAfter(fin)) {
             return false;
         } else if (debut.isAfter(fin)) {
-            throw new RuntimeException("La date de début doit être avant la date de fin");
+            throw new DateException("Veillez entrer des données valides");
         }
-        throw new RuntimeException("Veuillez entrer des dates valides");
+        throw new DateException("Veuillez entrer des données valides");
     }
 }
