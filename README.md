@@ -182,3 +182,11 @@ fichier ne dépasse pas 1 MO.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
 
 Le rapport Sonar final indique...
+une fiabilité parfaite du code avec 0 bugs
+une securité avec 0 vulnerabilté
+une maintenabilité noté A avec que 41 code mauvais
+une revue de code pas necessaire noté A
+et seulement 3,6% de code identique 
+
+ce qui indique que le code à l'air de compilé et de renvoyer le resultat attendu.
+il se peut que certains KO limit ne sont pas testé, mais on peut dire que les methodes fonctionnent.
