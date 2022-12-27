@@ -35,6 +35,24 @@ public class SalarieAideADomicileRepositoryIntegrationTest {
 
     @Test
     void testPartCongesPrisTotauxAnneeNMoins1() {
+        // Given
+        SalarieAideADomicile salarieAideADomicile1 = new SalarieAideADomicile();
+        SalarieAideADomicile salarieAideADomicile2 = new SalarieAideADomicile();
+        String nom1 = "Ruben";
+        String nom2 = "Jallifier";
+        salarieAideADomicile1.setNom(nom1);
+        salarieAideADomicile2.setNom(nom2);
+        salarieAideADomicile1.setCongesPayesAcquisAnneeNMoins1(100);
+        salarieAideADomicile2.setCongesPayesAcquisAnneeNMoins1(100);
+        salarieAideADomicile1.setCongesPayesPrisAnneeNMoins1(10);
+        salarieAideADomicile2.setCongesPayesPrisAnneeNMoins1(10);
+
+        // When
+        salarieAideADomicileRepository.save(salarieAideADomicile1);
+        salarieAideADomicileRepository.save(salarieAideADomicile2);
+
+        // Then
+        Assertions.assertEquals(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1(), 0.1);
         salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1();
     }
 
