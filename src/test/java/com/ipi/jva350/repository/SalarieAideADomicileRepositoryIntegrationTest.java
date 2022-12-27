@@ -52,7 +52,7 @@ public class SalarieAideADomicileRepositoryIntegrationTest {
         salarieAideADomicileRepository.save(salarieAideADomicile2);
 
         // Then
-        Assertions.assertEquals(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1(), 0.1);
+        Assertions.assertEquals(0.1, salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1());
         salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1();
     }
 
