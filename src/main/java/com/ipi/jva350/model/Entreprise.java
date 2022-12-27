@@ -151,5 +151,6 @@ public final class Entreprise {
             throw new DateException("Veillez entrer des données valides");
         }
         throw new DateException("Veuillez entrer des données valides");
+
     }
 }
