@@ -148,6 +148,6 @@ public final class Entreprise {
         } else if (debut.isAfter(fin)) {
             throw new RuntimeException("La date de début doit être avant la date de fin");
         }
-        return false;
+        throw new RuntimeException("Veuillez entrer des dates valides");
     }
 }
