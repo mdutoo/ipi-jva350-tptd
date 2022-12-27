@@ -1,5 +1,7 @@
 package com.ipi.jva350.model;
 
+import com.ipi.jva350.exception.DateException;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -7,7 +9,7 @@ public final class Entreprise {
 
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
 
-    private Entreprise() {
+    Entreprise() {
 
     }
 
@@ -139,16 +141,16 @@ public final class Entreprise {
         return monEntier != test;
     }
 
-    /**
-     * Calcule si une date donnée est dans une plage (intervalle) de date (inclusif)
-     * @param d
-     * @param debut date de début de la plage
-     * @param fin date de fin de la plage
-     * @return
-     */
-    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException("à implémenter en TDD !");
-    }
+    // j'aurais sûrement écrit la meme méthode sans TDD (seulement je n'arrive pas à faire fonctionner le runtime exception si date début > date fin)
+    public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) throws DateException {
+        if (d.isAfter(debut) && d.isBefore(fin)) {
+            return true;
+        } else if (d.isBefore(debut) || d.isAfter(fin)) {
+            return false;
+        } else if (debut.isAfter(fin)) {
+            throw new DateException("Veillez entrer des données valides");
+        }
+        throw new DateException("Veuillez entrer des données valides");
 
+    }
 }

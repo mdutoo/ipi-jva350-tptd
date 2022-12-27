@@ -54,7 +54,7 @@ https://git-scm.com/download/win ). Quelques liens :
   - ajoutez dans le workflow Github la configuration de l'analyse Sonar Cloud du code
 - Rédigez **ci-dessous** une courte analyse du premier rapport produit par Sonar (métriques, état général...) :
 
-Le premier rapport Sonar indique...
+Le premier rapport Sonar indique 30 code smells dont 9 majeurs.
 
 
 ### Tests unitaires
@@ -181,4 +181,5 @@ fichier ne dépasse pas 1 MO.
 - BONUS : Créez une petite documentation statique en utilisant MkDocs.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
 
-Le rapport Sonar final indique...
+Le rapport Sonar final indique plusieurs code smells bloquants : un swap de valeur dans un assertion ainsi qu'un conseil, celui de remplacer un return false par un RuntimeException.
+Suite à la correction de ce code smell, il m'a été indiqué qu'il est préférable de créer sa propre exception, ce que je me suis employé à faire
