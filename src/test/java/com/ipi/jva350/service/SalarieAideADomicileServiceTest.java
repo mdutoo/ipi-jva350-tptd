@@ -65,7 +65,7 @@ public class SalarieAideADomicileServiceTest {
                 salarie.getMoisDebutContrat(),LocalDate.parse("2022-01-20"),LocalDate.parse("2022-02-01"));
 
         // Then
-        Assertions.assertEquals(limiteEntrepriseCongesPermis, 15L);
+        Assertions.assertEquals(15L, limiteEntrepriseCongesPermis);
     }
 
 }
