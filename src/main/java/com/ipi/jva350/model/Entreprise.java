@@ -1,5 +1,7 @@
 package com.ipi.jva350.model;
 
+import java.io.Console;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -7,7 +9,7 @@ public final class Entreprise {
 
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
 
-    private Entreprise() {
+    public Entreprise() {
 
     }
 
@@ -64,13 +66,14 @@ public final class Entreprise {
                 LocalDate.of(now.getYear(), 11,11),
                 // 25 décembre Noël
                 LocalDate.of(now.getYear(), 12,25)
-
         );
     }
 
     public static boolean bissextile(int y) {
-        String tmp = String.valueOf(y);
-        if (tmp.charAt(2) == '1' || tmp.charAt(2) == '3' || tmp.charAt(2) == 5 || tmp.charAt(2) == '7' || tmp.charAt(2) == '9') {
+        if((y%100!=0 || y%400==0) && (y%4==0)) {
+        	return true;
+        }
+    	/*if (tmp.charAt(2) == '1' || tmp.charAt(2) == '3' || tmp.charAt(2) == 5 || tmp.charAt(2) == '7' || tmp.charAt(2) == '9') {
             if (tmp.charAt(3)=='2'||tmp.charAt(3)=='6') return true;
             else
                 return false;
@@ -79,7 +82,7 @@ public final class Entreprise {
                 return false;
             }
             if (tmp.charAt(3)=='0'||tmp.charAt(3)=='4'||tmp.charAt(3)=='8')return true;
-        }
+        }*/
         return false;
     }
 
@@ -123,20 +126,30 @@ public final class Entreprise {
     }
 
 
-    public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
-        return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)
-                : LocalDate.of(d.getYear() - 1, 6, 1);
+    public static LocalDate getPremierJourAnneeDeConges(LocalDate date) {
+        if (date == null) {
+            return null;
+        } else {
+            int mois = date.getMonthValue();
+            int annee = date.getYear();
+
+            LocalDate premierJourConges = (mois > 5) ? LocalDate.of(annee, 6, 1) : LocalDate.of(annee - 1, 6, 1);
+            
+            return premierJourConges;
+        }
     }
 
     public static boolean estJourFerie(LocalDate jour) {
-        int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d ->
-                d.equals(jour)).count();
-        int test = bissextile(jour.getYear()) ? 1 : 0;
-        if (test != 0 && !(monEntier > 1)) {
-            test--;
+        List<LocalDate> joursFeries = Entreprise.joursFeries(jour);
+
+        int nombreOccurrences = (int) joursFeries.stream().filter(d -> d.equals(jour)).count();
+        int ajustementBissextile = (bissextile(jour.getYear())) ? 1 : 0;
+
+        if (ajustementBissextile != 0 && nombreOccurrences <= 1) {
+            ajustementBissextile--;
         }
-        return monEntier != test;
+
+        return nombreOccurrences != ajustementBissextile;
     }
 
     /**
@@ -147,8 +160,10 @@ public final class Entreprise {
      * @return
      */
     public static boolean estDansPlage(LocalDate d, LocalDate debut, LocalDate fin) {
-        // à implémenter en TDD !
-        throw new RuntimeException("à implémenter en TDD !");
+    	Date dD = new Date(d.getYear() - 1900, d.getMonthValue() - 1, d.getDayOfMonth());
+    	Date debutD = new Date(debut.getYear() - 1900, debut.getMonthValue() - 1, debut.getDayOfMonth());
+    	Date fintD = new Date(fin.getYear() - 1900, fin.getMonthValue() - 1, fin.getDayOfMonth());
+    	return (debutD.getTime() < dD.getTime() && dD.getTime() < fintD.getTime());
     }
 
 }

@@ -18,10 +18,11 @@ import java.util.stream.Collectors;
 public class SalarieAideADomicileService {
 
     @Autowired
-    private SalarieAideADomicileRepository salarieAideADomicileRepository;
+    public static SalarieAideADomicileRepository salarieAideADomicileRepository;
 
     public SalarieAideADomicileService() {
     }
+    
 
     /**
      * Créée un nouveau salarié en base de données.
@@ -58,7 +59,7 @@ public class SalarieAideADomicileService {
      * @param dernierJourDeConge demandé
      * @return arrondi à l'entier le plus proche
      */
-    public long calculeLimiteEntrepriseCongesPermis(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1,
+    public static long calculeLimiteEntrepriseCongesPermis(LocalDate moisEnCours, double congesPayesAcquisAnneeNMoins1,
                                                       LocalDate moisDebutContrat,
                                                       LocalDate premierJourDeConge, LocalDate dernierJourDeConge) {
         // proportion selon l'avancement dans l'année, pondérée avec poids plus gros sur juillet et août (20 vs 8) :

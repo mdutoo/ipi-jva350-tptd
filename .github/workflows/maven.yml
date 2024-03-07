@@ -1,0 +1,33 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ master,'evaluation' ]
+  pull_request:
+    branches: [ master,'evaluation' ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        fetch-depth: 0
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Run aLegalementDroitADesCongesPayesTest
+      run: mvn -B test -Dtest=com.ipi.jva350.aLegalementDroitADesCongesPayesTest --file pom.xml
+    - name: Run estJourOuvrableTest
+      run: mvn -B test -Dtest=com.ipi.jva350.estJourOuvrableTest --file pom.xml
+    - name: Run testCalculeJoursDeCongeDecomptesPourPlage
+      run: mvn -B test -Dtest=com.ipi.jva350.testCalculeJoursDeCongeDecomptesPourPlage --file pom.xml
+    - name: Run estDansPlageTest
+      run: mvn -B test -Dtest=com.ipi.jva350.estDansPlageTest --file pom.xml
+    - name: Run estjourFerieTest
+      run: mvn -B test -Dtest=com.ipi.jva350.estjourFerieTest --file pom.xml
+
