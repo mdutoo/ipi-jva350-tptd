@@ -11,13 +11,12 @@ import java.util.stream.Collectors;
  * NB. évite du paramétrage JPA qui n'est pas dans les prérequis du cours.
  */
 public class LinkedHashSetStringConverter implements AttributeConverter<LinkedHashSet<LocalDate>, String> {
-
     public static final String DELIMITER = ";";
 
     @Override
     public String convertToDatabaseColumn(LinkedHashSet<LocalDate> localDates) {
         return localDates == null ? null
-            : localDates.stream().map(d -> d.toString()).collect(Collectors.joining(DELIMITER));
+                : localDates.stream().map(d -> d.toString()).collect(Collectors.joining(DELIMITER));
     }
 
     @Override
